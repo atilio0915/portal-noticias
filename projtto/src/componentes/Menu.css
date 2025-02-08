@@ -1,0 +1,33 @@
+.container{
+    
+    width: 205px;
+    height: 1000px ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    left: -300px;
+    top:200px;
+    transition: left 0.2s ease ;
+}
+.container a{
+    width: 100%;
+    background: rgb(202, 21, 21);
+        color: #fff;
+        border: none;
+        text-align: center;
+        padding: 38px 0px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-top: 1px solid  rgba(0, 0, 0, 0.2);
+        border-bottom: 1px solid  rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+}
+.container.open{
+    left: 0;
+}
+.container a:hover{
+    background-color:  rgba(255, 0, 0, 0.5);
+}
