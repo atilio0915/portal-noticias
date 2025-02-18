@@ -11,7 +11,8 @@ function Menu({Isopen}) {
       <Link to="/science">Science</Link>
       <Link to="/war">War</Link>
       <Link to="/">Cadastro</Link>
-      <Link to="/entrar">entrar</Link>
+      <Link to="/entrar">Entrar</Link>
+      <Link to="/perfil">Perfil</Link>
     </div>
   );
 }
