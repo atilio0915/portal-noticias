@@ -1,11 +1,4 @@
-.container {
-    background-color: rgb(202, 21, 21); /* Cor de fundo */
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+
   
   .form {
     background-color: white; /* Fundo branco para o formulário */
@@ -45,7 +38,7 @@
     font-size: 2rem;
   }
   
-  button {
+  .button-cadastro {
     width: 50%;
     height: 80px;
     padding: 10px;
@@ -57,7 +50,5 @@
     font-size: 2rem;
   }
   
-  button:hover {
-    background-color: #a11a1a; /* Cor mais escura no hover */
-  }
+
   

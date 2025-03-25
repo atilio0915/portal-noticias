@@ -68,8 +68,8 @@ function Cadastro() {
               onChange={change}
             />
           </div>
-          <button type="submit"> CADASTRAR</button>
-          <button onClick={entrar}> ENTRAR </button>
+          <button className="button-cadastro" type="submit"> CADASTRAR</button>
+          <button className="button-cadastro"  onClick={entrar}> ENTRAR </button>
         </form>
         
        

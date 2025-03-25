@@ -4,6 +4,7 @@ import "../App.css";
 
 function Main({ Search, categoria, Isopen }) {
   const [articles, setArticles] = useState([]);
+  const [indexArray, setindexArray] = useState(0);
   const keyapi = "943be490d5db491683e3943ec0500037";
   const searchQuery = Search !== "" ? Search : categoria ? categoria : "world";
   const url = `https://newsapi.org/v2/everything?q=${searchQuery}&apiKey=${keyapi}`;
@@ -20,118 +21,211 @@ function Main({ Search, categoria, Isopen }) {
       });
   }, [Search]);
 
+  // useEffect do slider
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setindexArray((previndex) => (previndex + 1) % 3);
+    }, 5000);
 
+    return () => clearInterval(interval);
+  }, [indexArray]); // sempre q o indexArray mudar ele executa
 
+  //proximo slider button
+  const proximoSlider = () => {
+    setindexArray((previndex) => (previndex + 1) % 3);
+  };
+  //slider anterior
+  const anteriorSlider = () => {
+    setindexArray((previndex) => (previndex === 0 ? 2 : previndex - 1) % 3);
+  };
 
-  function adicionarnoticia(noticia){
-     fetch("http://localhost:3008/adicionarnoticias",{
-      method: 'POST',
-      headers:  {
+  function adicionarnoticia(noticia) {
+    fetch("http://localhost:3008/adicionarnoticias", {
+      method: "POST",
+      headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(noticia),
-      credentials: 'include', // garante q o cokie seja enviado com a requisição 
-     })
-     .then(response => response.json())
-     .then( (data) => {
-      if(data.mensagem){
-      alert(data.mensagem)
-      console.log("Notícia salva:", data)
-      }else {
-        throw new Error(data.erro);
-      }}
-      )
-     .catch((error) => {
-      alert(error.menssage)
-      console.error("Erro ao salvar notícia:", error)});
-     
+      credentials: "include", // garante q o cokie seja enviado com a requisição
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.mensagem) {
+          alert(data.mensagem);
+          console.log("Notícia salva:", data);
+        } else {
+          throw new Error(data.erro);
+        }
+      })
+      .catch((error) => {
+        alert(error.menssage);
+        console.error("Erro ao salvar notícia:", error);
+      });
   }
-  
+  const element = articles[indexArray]; // pegando o primeiro artigo
+
   return (
     <div style={{ filter: Isopen === true ? "brightness(50%)" : "" }}>
       <div className="container-noticias">
         <div className="container-noticias-1">
+          {element?.author && (
+            <div
+              className="noticiaSlider"
+              style={{ backgroundImage: `url(${element.urlToImage})` }}
+            >
+              <button className="buttonSlider" onClick={anteriorSlider}>
+                <i class="fa-solid fa-arrow-left"></i>
+              </button>
+              <a
+                className="linkSlider"
+                href={element.url}
+                target="_blank"
+                style={{ textDecoration: "none" }}
+              ></a>
+              <div className="overlay">
+                <h1 className="sliderh1">{element.title}</h1>
+              </div>
+              <button className="buttonSlider" onClick={proximoSlider}>
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          )}
+        </div>
+
+        {Search ? (
+          <div className="pai-subtitulo">
+            <h1 className="subtitulo">{Search}</h1>
+          </div>
+        ) : (
+          <div className="pai-subtitulo">
+            <h1 className="subtitulo">{categoria}</h1>
+          </div>
+        )}
+
+        <div className="container-noticias-2">
           {Array.isArray(articles) &&
-            articles.slice(0, 3).map((element, index) => {
+            articles.slice(4, 9).map((element, index) => {
               if (element.author !== null) {
+                const gridClasses = [
+                  "item1",
+                  "item2",
+                  "item3",
+                  "item4",
+                  "item5",
+                ]; // editar grid no css
                 return (
-                  <div key={index} className="noticia">
+                  <div
+                    key={index}
+                    className={` ${
+                      gridClasses[index] === "item1"
+                        ? `noticia22-item1 ${gridClasses[index]} `
+                        : "noticia22"
+                    }`}
+                  >
                     <a
                       href={element.url}
                       target="_blank"
-                      style={{ textDecoration: "none" }}
+                      style={{ textDecoration: "none", height: "80%" }}
                     >
                       <img
+                        className={`${gridClasses[index]}img`}
                         src={element.urlToImage}
                         alt={`Notícia ${index + 1}`}
-                        className="noticia-image"
-                        style={{ height: "70%", width: "100%" }}
+                       
                       />
-
-                      <h1 className="h1articles" style={{ fontSize: "25px" }}>
+                      <h1
+                        className="h1articless"
+                        
+                      >
                         {element.title}
                       </h1>
-                      <div>
-                        <button
-                          onClick={() => adicionarnoticia(element)}
-                          style={{
-                            height: "30px",
-                            width: "60px",
-                            fontSize: "15px",
-                          }}
-                        >
-                          salvar
-                        </button>
-                      </div>
                     </a>
+                    {gridClasses[index] === "item1" ? (
+                      <h1
+                        className="descricao"
+                        style={{
+                          color: "black",
+                        }}
+                      >
+                        {element.description}
+                      </h1>
+                    ) : null}
+                    <div style={{ margin: "6% 0px 2% 0px", flexShrink: 1 }}>
+                      <button
+                      className="button-salvar"
+                        onClick={() => adicionarnoticia(element)}
+                        
+                      >
+                        salvar
+                      </button>
+                    </div>
                   </div>
                 );
               }
             })}
         </div>
 
-        <div className="container-noticias-2">
+        <div className="container-noticias-3">
           {Array.isArray(articles) &&
-            articles.slice(4, 40).map((element, index) => {
+            articles.slice(10, 17).map((element, index) => {
               if (element.author !== null) {
+                const gridClasses = [
+                  "item11",
+                  "item12",
+                  "item13",
+                  "item14",
+                  "item15",
+                  "item16",
+                  "item17",
+                  
+                ]; // editar grid no css
                 return (
-                  <div key={index} className="noticia2">
+                  <div
+                    key={index}
+                    className={` ${
+                      gridClasses[index] === "item12" ||
+                      gridClasses[index] === "item11"
+                        ? `noticia22-item11 ${gridClasses[index]}`
+                        : "noticia22"
+                    }    `}
+                  >
                     <a
                       href={element.url}
                       target="_blank"
-                      style={{ textDecoration: "none" }}
+                      style={{ textDecoration: "none", height: "85%" }}
                     >
                       <img
+                        className={`${gridClasses[index]}img`}
                         src={element.urlToImage}
                         alt={`Notícia ${index + 1}`}
-                        style={{ height: "60%", width: "100%" }}
+                        
                       />
                       <h1
-                        className="h1articles"
-                        style={{
-                          margin: '0px',
-                          height: "15%",
-                          fontSize: "20px",
-                          color: "black",
-                        }}
+                        className="h1articless"
+                       
                       >
                         {element.title}
                       </h1>
-                      <div style={{  margin: '0px', height: "20%", flexShrink: 1 }}>
-                        <button
-                        onClick={() => adicionarnoticia(element)}
-                          style={{
-                            textAlign: 'center',
-                            height: "30px",
-                            width: "70px",
-                            fontSize: "17px",
-                          }}
-                        >
-                          salvar
-                        </button>
-                        
-                      </div>
                     </a>
+                    {gridClasses[index] === "item11" || gridClasses[index] === "item12" ? (
+                      <h1
+                        className="descricao"
+                        style={{
+                          color: "black",
+                        }}
+                      >
+                        {element.description}
+                      </h1>
+                    ) : null}
+                    <div style={{ margin: "6% 0px 2% 0px", flexShrink: 1 }}>
+                      <button
+                        className="button-salvar"
+                        onClick={() => adicionarnoticia(element)}
+                        
+                      >
+                        salvar
+                      </button>
+                    </div>
                   </div>
                 );
               }

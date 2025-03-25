@@ -16,7 +16,7 @@ function Tecnology(){
       <div
         style={{
           display: "flex",
-          background: "black",
+          backgroundColor:"white",
           flexDirection: "column",
           alignItems: "center",
           width: "100vw",
@@ -35,3 +35,5 @@ function Tecnology(){
     )
 }
 export default Tecnology
+
+

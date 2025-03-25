@@ -2,7 +2,7 @@ import React from "react";
 import "../App.css"
 function Footer({Isopen}) {
   return (
-    <div style={{filter: Isopen === true? "brightness(50%)" : "" }}>
+    <div style={{filter: Isopen === true? "brightness(50%)" : "",width:"100%" }}>
       <footer class="bbc-footer" >
         <div class="footer-social">
           <span>Follow on:</span>

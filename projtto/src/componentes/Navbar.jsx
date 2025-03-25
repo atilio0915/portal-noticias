@@ -1,44 +1,47 @@
 import React from "react";
 import "../App.css";
 import { Link } from "react-router-dom";
+import "./Navbar.css";
 function Navbar({ Search, SetSearch, Function, Isopen }) {
   return (
-    <div
-      className="navbar"
-      style={{
-        width: "100vw",
-        height: "200px",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <div className="container-input" style={{filter: Isopen === true ? "brightness(50%)" : ""}}>
+    <div className="navbar">
+      <div className={`container-input ${Isopen ? "open" : ""}`}>
+        <div className="nav">
+          <div className="divbutton">
+            <button className="menu-button" onClick={() => Function()}>
+              <i className="fa-solid fa-bars fa-2x iconemenu"></i>
+            </button>
+          </div>
+          <div className={`links ${Isopen ? "open" : ""}`}>
+            <Link className="nav-link" to="/home">
+              Home
+            </Link>
+            <Link className="nav-link" to="/sport">
+              Sport
+            </Link>
+            <Link className="nav-link" to="/tecnology">
+              Tecnology
+            </Link>
+            <Link className="nav-link" to="/science">
+              Science
+            </Link>
+            <Link className="nav-link" to="/war">
+              War
+            </Link>
+          </div>
+        </div>
         <input
-          class="pesquisa"
+          className="pesquisa"
           type="text"
-          placeholder="Pesquise algo..."
+          placeholder="Pesquise..."
           value={Search}
           onChange={(e) => SetSearch(e.target.value)}
-        ></input>
-        <span className="titulo">News</span>
-      </div>
-
-      <div className="nav">
-        <button
-          style={{ width: "205px", background: "rgb(202, 21, 21)" }}
-          onClick={() => Function()}
-        >
-          <i className="fa-solid fa-bars fa-2x iconemenu"></i>
-        </button>
-        <div className="links" style={{filter: Isopen === true ? "brightness(50%)" : ""}} >
-          <Link to="/home">Home</Link>
-          <Link to="/sport">Sport</Link>
-          <Link to="/tecnology">Tecnology</Link>
-          <Link to="/science">Science</Link>
-          <Link to="/war">War</Link>
-        </div>
+        />
+        <i  className="fa-solid fa-magnifying-glass iconepesquisa"></i>
+        <div className="titulo">News </div>
       </div>
     </div>
   );
 }
+
 export default Navbar;

@@ -15,8 +15,8 @@ function Home(){
     }
     return(
         <div style={{display:"flex", 
-        background:"black",
-        flexDirection:"column", alignItems:"center",width:"100vw",}}>
+        backgroundColor:"white",
+        flexDirection:"column", alignItems:"center",width:"100vw",height:"100vw"}}>
         <Navbar Search={search} SetSearch={setSearch} Function={changeopen} Isopen={isopen}/>
         <Menu Isopen={isopen} />
         <Main Search={search} Isopen={isopen}/>

@@ -2,7 +2,11 @@ import React from "react";
 import "../componentes/Cadastro.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+
+
 function Entrar() {
+  const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
   const [value, Setvalue] = useState({ nome: "", senha: "" });
   const navigate = useNavigate();
   const change = (e) => {
@@ -27,6 +31,7 @@ function Entrar() {
       .then((response) => response.json())
       // segundo then manipulacao de dados
       .then((data) => {
+        setCookie('user_id',data.userID);// pegando o userID e setando o cookie
         console.log("dados recebidos");
         alert(data.mensagem);
         if (data.status === "sucesso") {
@@ -36,6 +41,7 @@ function Entrar() {
       // terceiro é o erro ao enviar a requisicao
       .catch((error) => {
         console.error("erro ao enviar a requisição");
+        alert(error.mensagem)
       });
   };
 

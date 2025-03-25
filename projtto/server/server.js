@@ -27,7 +27,7 @@ app.use(express.json());
 const sessionStore = new mysqlStore({
   host: "127.0.0.1",
   user: "root",
-  password: "58",
+  password: "58627094",
   database: "portal_db",
   clearExpired: true,
   checkExpirationInterval: 900000, // Verifica sessões expiradas a cada 15 min
@@ -54,7 +54,7 @@ app.use(
 const connection = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
-  password: "58",
+  password: "58627094",
   database: "portal_db",
 });
 
@@ -155,21 +155,30 @@ app.post("/entrar", (req, res) => {
         // Gerar uma sessão para o cliente
         req.session.user = { id: user.id, senha: user.senha };
         console.log(req.sessionID)
-
-        res.cookie("user_id", req.session.user.id, {
-          maxAge: 1000 * 60 * 30, // 30 minutos
-          httpOnly: true,
-        });
-
-
+        
+       // res.json({userID: req.session.user.id});
+        console.log('cookie criado')
+        
+        console.log('Sessão antes do cookie:', req.session.user);
+        
+        //res.cookie("user_id", req.session.user.id, {
+        //  maxAge: 1000 * 60 * 30, // 30 minutos
+        //httpOnly: true,
+        //  secure: false,
+        // });
+        console.log('passou')
+ 
         // Salvar a sessão de forma assíncrona
         req.session.save((err) => {
           if (err) {
-            return res.status(500).json({ mensagem: "Erro ao salvar sessão" });
+            return res.status(500).json({ 
+              status: "erro", // é necessario colocar o status erro para o catch capturar
+              mensagem: "Erro ao salvar sessão" });
           }
           console.log("Sessão após salvar:", req.session); // Aqui já deve estar disponível
 
           return res.status(200).json({
+            userID: req.session.user.id,
             status: "sucesso",
             mensagem: "Sessão criada",
           });
@@ -194,32 +203,54 @@ app.post("/logout", (req, res) => {
 
 // Middleware para verificar autenticação
 function verificarAutenticacao(req, res, next) {
-  if ( !req.session.user || !req.session.user.id) {
-    console.log("Sessão inválida ou não autenticada:", req.session);
-    return res.status(401).json({ erro: "Usuário não autenticado" });
-  }
-  console.log("Usuário autenticado:", req.session.user.id);
+  
+  if ( !req.cookies.user_id) {
+   console.log("Sessão inválida ou não autenticada:");
+  return res.status(401).json({ erro: "Usuário não autenticado" });
+ }
+
+  console.log("Usuário autenticado:",req.cookies.user_id);
   next(); // Se o usuário estiver autenticado, segue para a próxima função
 }
 
 // Rota para pegar notícias salvas no banco
 app.get('/noticiasSalvas', (req, res) => {
-  const query = "SELECT * FROM noticiassalvas";
-  connection.query(query, (err, results) => {
+  const query = "SELECT * FROM noticiassalvas WHERE user_id = ?";
+  const userid =  req.cookies.user_id
+  console.log("noticias salvas",userid)
+  connection.query(query,[req.cookies.user_id] ,(err, results) => {
     if (err) return res.status(500).json({ erro: "Erro ao achar tabela de notícias salvas" });
     res.json(results);
   });
 });
 
+// remover noticias salvas 
+app.delete("/deletarnoticia", (req,res) => {
+  const url = req.body.url;
+
+  const query = " DELETE from noticiassalvas WHERE url = ?"
+  connection.query(query, [url], (err, results) => {
+     if(err){
+      res.status(500).json({error : "nao conseguir deletar"})
+      console.log("nao deletada")
+     }
+     console.log("deletada")
+     res.json({message: "noticia deletada "})
+  })
+})  
+
+
+
+
 // Rota para adicionar notícias salvas
 app.post('/adicionarnoticias', verificarAutenticacao, (req, res) => {
-  console.log(req.body);
+  console.log('passou2');
   const noticia = req.body;
   const titulo = noticia.title;
   const url = noticia.url;
   const img = noticia.urlToImage;
   const descricao = noticia.description;
-  const userid =  req.cookies.user_id // Acessando diretamente a sessão para obter o ID do usuário
+  const userid =  req.cookies.user_id // Acessando diretamente o cookie para obter o ID do usuário
   const query = 'INSERT INTO noticiassalvas (user_id, titulo, descricao, url, img) VALUES (?,?,?,?,?)';
   connection.query(query, [userid, titulo, descricao, url, img], (err, results) => {
     if (err) {

@@ -16,7 +16,7 @@ function Science() {
     <div
       style={{
         display: "flex",
-        background: "black",
+        backgroundColor:"white",
         flexDirection: "column",
         alignItems: "center",
         width: "100vw",

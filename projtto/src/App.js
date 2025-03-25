@@ -10,6 +10,7 @@ import Perfil from "./componentes/Perfil";
 import React, { useState, useEffect } from "react";
 import {RouterProvider, createBrowserRouter} from "react-router-dom"
 import Entrar from "./componentes/Entrar";
+import { CookiesProvider } from "react-cookie";
 
 const router = createBrowserRouter([
   {path: "/", element:<Cadastro/>},
@@ -25,9 +26,13 @@ const router = createBrowserRouter([
 function App() {
   
   return (
-    <div className="App">
-     <RouterProvider router={router} />
-    </div>
+
+      <div className="App">
+        <CookiesProvider>
+         <RouterProvider router={router} />
+        </CookiesProvider>
+      </div>
+    
   );
 }
 

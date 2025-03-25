@@ -1,0 +1,54 @@
+.containerIMG {
+    height: 100%;
+    width: 550px;
+    margin-left: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .titulo-perfil {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20%;
+    width: 100%;
+    font-size: 24px;
+    color: #f0f0f0;
+    background-color:#0f0f0f;
+    
+  }
+  .label {
+    height: 20%;
+    width: 100%;
+    cursor: pointer;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
+    background-color:#151515
+  }
+  
+  .label-span {
+    width: 100%;
+    color: rgb(252, 251, 251);
+    font-size: 24px;
+  }
+  
+  
+  .image-container {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    height: 60%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items:center ;
+  }
+  
+  .image-container img {
+    border-radius: 100%;
+    height: 90%;
+    width: 100%;
+  }
+  
