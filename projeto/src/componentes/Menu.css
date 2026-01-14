@@ -1,0 +1,91 @@
+.menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 45;
+}
+
+.menu-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  padding: 20px 16px;
+  background: linear-gradient(180deg, #fff7f7 0%, #ffffff 60%);
+  border-right: 1px solid #f3b6b6;
+  box-shadow: 16px 0 30px rgba(185, 28, 28, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transform: translateX(-110%);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  z-index: 50;
+  overflow-y: auto;
+}
+
+.menu-voltar {
+  width: 100%;
+  border: 1px solid #f1b4b4;
+  background: linear-gradient(120deg, var(--brand-red) 0%, #ef4444 70%);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(185, 28, 28, 0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.menu-voltar:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 26px rgba(185, 28, 28, 0.25);
+}
+
+.container a {
+  width: 100%;
+  background-color: #fff;
+  color: var(--brand-red-dark);
+  border: 1px solid #f1b4b4;
+  text-align: left;
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.container.open {
+  transform: translateX(0);
+}
+
+.container a:hover {
+  background-color: var(--brand-red);
+  color: #fff;
+  transform: translateX(4px);
+  box-shadow: 0 12px 22px rgba(185, 28, 28, 0.22);
+}
+
+@media (max-width: 900px) {
+  .container {
+    top: 0;
+    width: min(80vw, 280px);
+    height: 100vh;
+  }
+}
