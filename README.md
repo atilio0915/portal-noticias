@@ -6,6 +6,11 @@ Projeto feito para entender melhor cookies e sessao em uma aplicacao Node/Expres
 
 Busca noticias da NewsAPI, permite pesquisar por termos e navegar por categorias. Usuarios podem cadastrar, entrar, salvar noticias e remover do perfil.
 
+## Screenshots
+
+![Tela 1](docs/captura-346.png)
+![Tela 2](docs/captura-343.png)
+
 ## Requisitos
 
 - Node.js 18+
