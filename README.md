@@ -4,7 +4,7 @@ Projeto feito para entender melhor cookies e sessao em uma aplicacao Node/Expres
 
 ## O que o portal faz
 
-Busca noticias da NewsAPI, permite pesquisar por termos e navegar por categorias. Usuarios podem cadastrar, entrar, salvar noticias e remover do perfil.
+Busca noticias da NewsAPI, permite pesquisar e navegar por categorias. Usuarios podem cadastrar, entrar, salvar noticias e remover do perfil.
 
 ## Screenshots
 
