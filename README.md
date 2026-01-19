@@ -2,7 +2,7 @@
 
 Projeto feito para entender melhor cookies e sessao em uma aplicacao Node/Express.
 
-## O que o portal faz
+## O que o portal faz?
 
 Busca noticias da NewsAPI, permite pesquisar e navegar por categorias. Usuarios podem cadastrar, entrar, salvar noticias e remover do perfil.
 
@@ -17,7 +17,7 @@ Busca noticias da NewsAPI, permite pesquisar e navegar por categorias. Usuarios 
 - npm
 - Postgres 13+
 
-## Configuracao
+## Configuração
 
 Crie um banco Postgres e as tabelas usadas pelo backend:
 
@@ -25,7 +25,7 @@ Crie um banco Postgres e as tabelas usadas pelo backend:
 - `noticiassalvas` (id, user_id, titulo, descricao, url, img)
 - `session` (criada automaticamente pelo connect-pg-simple)
 
-## Instalacao
+## Instalação
 
 1) Instale as dependencias (dentro da pasta `projtto`):
 2) Configure o Postgres e o `.env` com suas credenciais.
