@@ -9,7 +9,7 @@ Busca noticias da NewsAPI, permite pesquisar e navegar por categorias. Usuarios 
 ## Screenshots
 
 ![Tela 1](docs/captura-346.png)
-![Tela 2](docs/captura-343.png)
+
 
 ## Requisitos
 
